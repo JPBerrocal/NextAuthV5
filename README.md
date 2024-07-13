@@ -10,4 +10,4 @@ npm run dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-https://www.youtube.com/watch?v=1MTyCvS05V4&t=44s
+https://youtu.be/1MTyCvS05V4?t=2679
