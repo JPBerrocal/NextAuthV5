@@ -5,7 +5,14 @@ import * as z from "zod";
 import { LoginSchema } from "@/schemas";
 import { DEFAULT_LOGIN_REDIRECT } from "@/routes";
 import { signIn } from "@/auth";
+import { generateVerificationToken } from "@/lib/tokens";
+import { getUserByEmail } from "@/data/user";
 
+/**
+ * Estos server actions se llaman en los formularios. form-login.tsx
+ * @param values
+ * @returns
+ */
 export const login = async (values: z.infer<typeof LoginSchema>) => {
   const validatedFields = LoginSchema.safeParse(values);
 
@@ -14,6 +21,20 @@ export const login = async (values: z.infer<typeof LoginSchema>) => {
   }
 
   const { email, password } = validatedFields.data;
+
+  const existingUser = await getUserByEmail(email);
+
+  //si no existe el usuario o el usuario existe pero es se registro con un OAuth provider.
+  if (!existingUser || !existingUser.password || !existingUser.email) {
+    return { error: "Invalid email or password" };
+  }
+
+  if (!existingUser.emailVerified) {
+    const verificationToken = await generateVerificationToken(
+      existingUser.email
+    );
+    return { success: "Confirmation Email sent" };
+  }
 
   try {
     await signIn("credentials", {

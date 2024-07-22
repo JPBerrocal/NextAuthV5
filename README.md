@@ -131,6 +131,27 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
 
 ## Email verification for credential providers
 
-https://youtu.be/1MTyCvS05V4?list=PLhkjWwqxiVng-RZwn4435K8WhJIy5kLez&t=13678
+1. Create Verification model inside prisma.schema.
 
-Error aparce en 3:04:07
+2. Create /data/verification-token.ts
+
+3. Create /lib/tokens.ts
+
+4. Install
+
+```
+npm install uuid
+npm install -save-dev @types/uuid
+```
+
+5. Add the generation and verification tokens in the server actions, login-action and register-action. Additionally, the auth callbacks should be protected against users who have not yet confirmed their email.
+
+6. Set email provider, in this case resend.com
+
+7. Install
+
+```
+npm install resend
+```
+
+https://youtu.be/1MTyCvS05V4?list=PLhkjWwqxiVng-RZwn4435K8WhJIy5kLez&t=14997

@@ -20,6 +20,22 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     },
   },
   callbacks: {
+    async signIn({ user, account }) {
+      if (!user.id) return false;
+      //Allow OAuth providers without email verification. In this case we are only using Google and GitHub,
+      //others may need email verification so adjust accordingly.
+      if (account?.provider !== "credentials") {
+        return true;
+      }
+
+      //Prevent sign in without email verification
+      const existingUser = await getUserById(user.id);
+      if (!existingUser?.emailVerified) return false;
+
+      //TODO: add 2FA check
+
+      return true;
+    },
     async session({ token, session }) {
       if (token.sub && session.user) {
         session.user.id = token.sub;
