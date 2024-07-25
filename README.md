@@ -146,7 +146,7 @@ npm install -save-dev @types/uuid
 
 5. Add the generation and verification tokens in the server actions, login-action and register-action. Additionally, the auth callbacks should be protected against users who have not yet confirmed their email.
 
-6. Set email provider, in this case resend.com
+6. Set email provider, in this case resend.com. In dev only the email you use to register the resend account will work until you add a domain. So make sure to create the test user using the same email.
 
 7. Install
 
@@ -154,4 +154,10 @@ npm install -save-dev @types/uuid
 npm install resend
 ```
 
-https://youtu.be/1MTyCvS05V4?list=PLhkjWwqxiVng-RZwn4435K8WhJIy5kLez&t=14997
+8. Create the function to send the email via resend in /lib/email.ts. Call this function in the auth server actions.
+
+9. Create the page and route to redirect the users to confirm their email. In this case /auth/new-verefication.
+
+10. Create the server action to verify the email. actions/emailVerification-action.ts
+
+https://youtu.be/1MTyCvS05V4?list=PLhkjWwqxiVng-RZwn4435K8WhJIy5kLez&t=17295
