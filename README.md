@@ -160,4 +160,22 @@ npm install resend
 
 10. Create the server action to verify the email. actions/emailVerification-action.ts
 
-https://youtu.be/1MTyCvS05V4?list=PLhkjWwqxiVng-RZwn4435K8WhJIy5kLez&t=17295
+## Reset Password
+
+1. Create reset form
+
+2. create reset action
+
+3. Create the schema model in schema.prima for the PasswordResetToken
+
+4. Create util functions to retrive reset token in data/reset-tokens.ts
+
+5. generate the reset tokens in lib/tokens.ts
+
+6. Create function to generate the email in lib/email
+
+7. Generate the token and send the email in the reset-action
+
+8. Create Reset Password Form
+
+https://youtu.be/1MTyCvS05V4?list=PLhkjWwqxiVng-RZwn4435K8WhJIy5kLez&t=18594
