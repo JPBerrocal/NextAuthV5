@@ -178,4 +178,6 @@ npm install resend
 
 8. Create Reset Password Form
 
+9. Create reset password server action.
+
 https://youtu.be/1MTyCvS05V4?list=PLhkjWwqxiVng-RZwn4435K8WhJIy5kLez&t=18594
