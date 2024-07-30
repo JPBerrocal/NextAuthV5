@@ -198,4 +198,6 @@ npm install resend
 
 8. Add the code field to the LoginSchema
 
-https://youtu.be/1MTyCvS05V4?list=PLhkjWwqxiVng-RZwn4435K8WhJIy5kLez&t=19810
+9. Change the login server action to verify 2FA token and create a TwoFactorConfirmation
+
+https://youtu.be/1MTyCvS05V4?list=PLhkjWwqxiVng-RZwn4435K8WhJIy5kLez&t=23330

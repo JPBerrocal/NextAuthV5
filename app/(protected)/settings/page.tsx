@@ -1,7 +1,10 @@
+//this import is for server components
 import { auth, signOut } from "@/auth";
+
 import { Button } from "@/components/ui/button";
 
 export default async function SettingsPage() {
+  //this approach is for server components
   const session = await auth();
 
   return (
