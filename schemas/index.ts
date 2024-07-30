@@ -13,6 +13,8 @@ export const ResetSchema = z.object({
 export const LoginSchema = z.object({
   email: z.string().email(),
   password: z.string().min(1, { message: "Password is required" }),
+  //this code is use only in 2FA login
+  code: z.optional(z.string()),
 });
 
 export const RegisterSchema = z.object({

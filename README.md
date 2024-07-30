@@ -180,4 +180,22 @@ npm install resend
 
 9. Create reset password server action.
 
-https://youtu.be/1MTyCvS05V4?list=PLhkjWwqxiVng-RZwn4435K8WhJIy5kLez&t=18594
+## 2FA
+
+1. Add the field isTwoFactorEnabled and TwoFactorConfirmation to the user prisma schema
+
+2. Create the prisma models for TwoFactorToken and TwoFactorConfirmation entities.
+
+3. Generate the prisma models and update the database
+
+4. Create util functions to retrive 2FA token in data/two-factor-token.ts
+
+5. Create function to retrieve 2FA by user id in data/two-factor-confirmation.ts
+
+6. generate the 2FA tokens in lib/tokens.ts
+
+7. In auth.ts, modify the signIn callback to prevent login for users that required 2FA, this can be verified in the dabatase, the field is isTwoFactorEnabled = true
+
+8. Add the code field to the LoginSchema
+
+https://youtu.be/1MTyCvS05V4?list=PLhkjWwqxiVng-RZwn4435K8WhJIy5kLez&t=19810
