@@ -1,5 +1,6 @@
 import authConfig from "./auth.config";
 import NextAuth from "next-auth";
+import { useCallback } from "react";
 import {
   DEFAULT_LOGIN_REDIRECT,
   apiAuthPrefix,
@@ -28,7 +29,17 @@ export default auth((req) => {
   }
 
   if (!isLoggedIn && !isPublicRoute) {
-    return Response.redirect(new URL("/auth/login", nextUrl));
+    let callbackURL = nextUrl.pathname;
+
+    if (nextUrl.search) {
+      callbackURL += nextUrl.search;
+    }
+
+    const encodedCallbackURL = encodeURIComponent(callbackURL);
+
+    return Response.redirect(
+      new URL(`/auth/login?callbackUrl=${encodedCallbackURL}`, nextUrl)
+    );
   }
 
   return;

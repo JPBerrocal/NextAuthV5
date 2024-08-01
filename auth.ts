@@ -4,6 +4,7 @@ import authConfig from "./auth.config";
 import { db } from "@/lib/db";
 import { getUserById } from "./data/user";
 import { getTwoFactorConfirmationByUserId } from "./data/two-factor-confirmation";
+import { getAccountByUserId } from "./data/account";
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   pages: {
@@ -61,6 +62,13 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         session.user.isTwoFactorEnabled = token.isTwoFactorEnabled as boolean;
       }
 
+      //name, email and isOAuth are setting for updating the user profile, no need it for actual authentication
+      if (session.user) {
+        session.user.name = token.name;
+        session.user.email = token.email as string;
+        session.user.isOAuth = token.isOAuth as boolean;
+      }
+
       return session;
     },
     async jwt({ token, user }) {
@@ -69,6 +77,13 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       const userFromDB = await getUserById(token.sub);
 
       if (!userFromDB) return token;
+
+      const existingAccount = await getAccountByUserId(userFromDB.id);
+
+      //name, email and isOAuth are setting for updating the user profile, no need it for actual authentication
+      token.isOAuth = !!existingAccount;
+      token.name = userFromDB.name;
+      token.email = userFromDB.email;
 
       token.role = userFromDB.role;
       token.isTwoFactorEnabled = userFromDB.isTwoFactorEnabled;

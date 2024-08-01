@@ -26,6 +26,7 @@ import { login } from "@/actions/login-action";
 
 export const LoginForm = () => {
   const searchParams = useSearchParams();
+  const callbackUrl = searchParams.get("callbackUrl");
 
   const urlError =
     searchParams.get("error") === "OAuthAccountNotLinked"
@@ -48,8 +49,9 @@ export const LoginForm = () => {
   const onSubmit = (values: z.infer<typeof LoginSchema>) => {
     setError("");
     setSuccess("");
+
     startTransition(() => {
-      login(values)
+      login(values, callbackUrl)
         .then((data) => {
           if (data?.error) {
             form.reset();
